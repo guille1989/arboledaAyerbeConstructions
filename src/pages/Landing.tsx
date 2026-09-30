@@ -26,7 +26,7 @@ const STEPS = [
 
 const DELIVERABLES = [
   'Planos as-built', 'Registro fotográfico', 'Mapas de fisuras', 'Resultados de ensayos',
-  'Modelo estructural', 'Memoria de cálculo', 'Informe de diagnóstico', 'Planos de reforzamiento',
+  'Modelado estructural dual', 'Memoria de cálculo', 'Informe de diagnóstico', 'Planos de reforzamiento',
   'Especificaciones', 'Presupuesto y APU',
 ]
 
