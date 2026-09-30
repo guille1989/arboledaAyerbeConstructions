@@ -57,6 +57,9 @@ const WHATSAPP_DISPLAY = import.meta.env.VITE_WHATSAPP_DISPLAY?.trim() || (WHATS
 const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL?.trim() ?? ''
 const HAS_CONTACT = Boolean(WHATSAPP_NUMBER || CONTACT_EMAIL)
 
+// Generado con `pnpm brochure` desde brochure/brochure.html
+const BROCHURE_URL = '/brochure-peritaje-estructural.pdf'
+
 // Copia al portapapeles; si la API moderna no está permitida (iframes, navegadores antiguos) usa execCommand
 async function copyText(text: string) {
   try {
@@ -188,7 +191,7 @@ export default function Landing() {
     return () => obs.disconnect()
   }, [])
 
-  const servRef = useReveal(), methodRef = useReveal(), delivRef = useReveal()
+  const servRef = useReveal(), methodRef = useReveal(), delivRef = useReveal(), brochureRef = useReveal()
   const coverageRef = useReveal(), reqRef = useReveal(), faqRef = useReveal()
 
   return (
@@ -207,6 +210,7 @@ export default function Landing() {
             <div>
               <span className="block text-white font-extrabold text-sm leading-tight tracking-wide">Arboleda Ayerbe</span>
               <span className="block text-[10px] font-semibold tracking-[.1em] uppercase" style={{ color: 'rgba(216,173,87,.75)' }}>Construcciones S.A.S.</span>
+              <span className="block mt-0.5 text-[10px] font-medium tracking-[.06em]" style={{ color: 'rgba(238,243,248,.6)' }}>NIT: 901015900</span>
             </div>
           </a>
           <div className="hidden md:flex items-center gap-7">
@@ -325,6 +329,29 @@ export default function Landing() {
               {SERVICES.map((s, i) => (
                 <ServiceCard key={s.n} {...s} delay={`reveal-delay-${Math.min(i % 3 + 1, 6)}`} />
               ))}
+            </div>
+
+            {/* Brochure descargable */}
+            <div ref={brochureRef as React.RefObject<HTMLDivElement>}
+              className="reveal relative mt-10 grid md:grid-cols-[1fr_auto] gap-7 md:gap-10 items-center overflow-hidden rounded-[24px] p-8 md:p-10 text-white"
+              style={{ background: 'linear-gradient(145deg, #10253e, #07111f)', boxShadow: '0 20px 55px rgba(7,17,31,.18)' }}>
+              <div className="absolute top-0 left-9 w-[70px] h-1 rounded-b-sm" style={{ background: '#d8ad57' }} />
+              <span className="absolute -right-16 -bottom-16 w-40 h-40 rotate-45 border pointer-events-none" style={{ borderColor: 'rgba(216,173,87,.25)' }} />
+              <div className="relative">
+                <Eyebrow light>Brochure · PDF</Eyebrow>
+                <h3 className="mb-3 text-2xl md:text-[1.75rem] font-normal leading-tight tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
+                  Peritaje estructural <span className="whitespace-nowrap">post-sismo</span> y estudio de vulnerabilidad sísmica
+                </h3>
+                <p className="mb-0 max-w-[620px] text-sm leading-relaxed" style={{ color: '#cbd5e1' }}>
+                  Servicios, ensayos especializados, entregables y sectores que atendemos, reunidos en un documento para compartir.
+                </p>
+              </div>
+              <a href={BROCHURE_URL} download="Arboleda-Ayerbe-Peritaje-Estructural-Post-Sismo.pdf"
+                className="relative inline-flex items-center justify-center gap-2 min-h-[50px] px-6 rounded-full font-bold text-sm no-underline transition-all duration-200 hover:-translate-y-0.5 hover:brightness-110"
+                style={{ background: '#d8ad57', color: '#172033' }}>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5M2.5 13.5h11" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                Descargar brochure
+              </a>
             </div>
           </div>
         </section>

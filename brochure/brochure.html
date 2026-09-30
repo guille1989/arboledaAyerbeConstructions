@@ -48,7 +48,10 @@
 
   /* ── Portada ─────────────────────────────── */
   .cover { background: var(--navy); color: #fff; }
-  .cover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .42; }
+  .nw { white-space: nowrap; }
+  /* La foto va sin opacity (así Chrome la incrusta como JPEG); el velo navy equivale a opacity .42 sobre fondo navy */
+  .cover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cover-veil { position: absolute; inset: 0; background: rgba(11,26,44,.58); }
   .cover-shade { position: absolute; inset: 0; background:
     linear-gradient(165deg, rgba(4,12,23,.97) 0%, rgba(4,12,23,.9) 42%, rgba(4,12,23,.55) 78%, rgba(4,12,23,.7) 100%),
     linear-gradient(0deg, rgba(5,13,24,.85) 0%, transparent 50%); }
@@ -80,52 +83,66 @@
   .card h3 { margin-bottom: 12px; font-family: var(--display); font-weight: 400; font-size: 19px; line-height: 1.15; }
   .card .lead { margin-bottom: 10px; font-size: 10.5px; line-height: 1.5; color: var(--muted); }
   .card .lead strong { color: var(--ink); font-weight: 700; }
+  .callout { position: relative; overflow: hidden; padding: 22px; border-radius: 16px; color: #fff;
+    background: linear-gradient(145deg, #10253e, #07111f); box-shadow: 0 16px 40px rgba(7,17,31,.16); }
+  .callout::before { content: ''; position: absolute; top: 0; left: 22px; width: 56px; height: 3px; border-radius: 0 0 2px 2px; background: var(--gold); }
+  .callout .quote { font-family: var(--display); font-size: 17px; line-height: 1.3; }
+  .callout .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .callout .tags span { padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); color: #dce6ef; font-size: 9.5px; font-weight: 600; }
 
   /* ── Entregables + sectores ─────────────── */
-  .deliver { background: var(--navy); color: #fff; padding: 50px 56px 44px; }
-  .deliver .h2 { margin-bottom: 26px; }
+  .deliver { background: var(--navy); color: #fff; padding: 44px 56px 36px; }
+  .deliver .h2 { margin-bottom: 22px; }
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .dcard { padding: 20px 22px; border: 1px solid rgba(255,255,255,.14); border-radius: 16px; background: rgba(255,255,255,.03); }
+  .dcard { padding: 18px 22px; border: 1px solid rgba(255,255,255,.14); border-radius: 16px; background: rgba(255,255,255,.03); }
   .dcard .card-n { color: var(--gold); }
   .dcard h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-family: var(--display); font-weight: 400; font-size: 19px; }
   .badge { padding: 3px 8px; border-radius: 999px; border: 1px solid rgba(216,173,87,.5); color: var(--gold); font-family: var(--sans); font-size: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
   .dash { display: flex; gap: 9px; font-size: 10.5px; line-height: 1.45; color: #c3cfdc; }
   .dash + .dash { margin-top: 6px; }
   .dash::before { content: '—'; color: var(--gold); flex: none; }
-  .sectors { padding: 40px 56px 0; }
-  .sectors .h2 { margin-bottom: 20px; }
+  .sectors { padding: 30px 56px 0; }
+  .sectors .h2 { margin-bottom: 16px; font-size: 30px; }
   .chip { display: inline-block; margin: 0 6px 8px 0; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: #354153; font-size: 11px; }
 
-  /* ── Contraportada ──────────────────────── */
-  .value { padding: 52px 56px 34px; }
-  .value .h2 { margin-bottom: 22px; }
-  .vgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .vitem { display: flex; gap: 12px; align-items: center; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: #fafbfc;
-    font-size: 11.5px; font-weight: 600; line-height: 1.4; }
-  .vitem i { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%;
+  .value { padding: 26px 56px 0; }
+  .value .h2 { margin-bottom: 16px; font-size: 30px; }
+  .vgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .vitem { display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: #fafbfc;
+    font-size: 11px; font-weight: 600; line-height: 1.45; }
+  .vitem i { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%;
     background: rgba(216,173,87,.2); color: var(--gold-dim); font-style: normal; font-size: 11px; font-weight: 800; }
-  .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; padding: 40px 56px; background: var(--gold-soft); }
+
+  /* ── Contraportada ──────────────────────── */
+  .back { background: var(--ink); color: #fff; }
+  .back-diamond { position: absolute; width: 460px; height: 460px; transform: rotate(45deg); border: 1px solid rgba(216,173,87,.22);
+    box-shadow: 0 0 0 60px rgba(216,173,87,.025), 0 0 0 120px rgba(216,173,87,.015); }
+  .back-center { position: absolute; top: 0; bottom: 80px; left: 56px; right: 56px; display: flex; flex-direction: column; justify-content: center; gap: 84px; }
+  .back-brand { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center;
+    padding: 36px; border-radius: 22px; background: var(--gold-soft); color: var(--ink); }
   .contact p { margin-top: 12px; font-size: 11px; line-height: 1.65; color: var(--muted); }
-  .ccard { padding: 24px 24px 20px; border-radius: 20px; background: var(--navy); color: #fff; box-shadow: 0 18px 44px rgba(7,17,31,.18); }
+  .ccard { padding: 22px 22px 18px; border-radius: 18px; background: var(--navy); color: #fff; box-shadow: 0 18px 44px rgba(7,17,31,.22); }
   .ccard-name { font-size: 13px; font-weight: 800; letter-spacing: .06em; }
   .ccard-role { margin-top: 3px; font-size: 10.5px; color: #9eacbc; }
   .crow { display: flex; align-items: center; gap: 12px; margin-top: 12px; padding: 11px 14px; border: 1px solid rgba(255,255,255,.12); border-radius: 12px; }
   .crow-icon { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 8px; }
   .crow-label { font-size: 9.5px; font-weight: 700; color: #fff; }
   .crow-value { font-size: 10.5px; color: #c3cfdc; }
-  .back-footer { position: absolute; left: 0; right: 0; bottom: 0; height: 196px; background: var(--footer); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
-  .back-name { font-size: 20px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .back-bottom { position: absolute; left: 56px; right: 56px; bottom: 40px; display: flex; justify-content: space-between; padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,.12); font-size: 8.5px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #6f7d8d; }
+  .back-name { font-size: 24px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
   .back-sub { margin-top: 4px; font-size: 11px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; color: #c3cfdc; text-align: center; }
   .back-tag { display: flex; align-items: center; gap: 12px; font-size: 8.5px; letter-spacing: .3em; text-transform: uppercase; color: #9eacbc; }
   .back-tag::before, .back-tag::after { content: ''; width: 60px; height: 1px; background: var(--brand-gold); }
-  .back-nit { font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase; color: #6f7d8d; }
 </style>
 </head>
 <body>
 
 <!-- ═══════════ 1 · PORTADA ═══════════ -->
 <section class="page cover">
-  <img class="cover-img" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&h=2000&fit=crop&auto=format&q=70" alt="" />
+  <img class="cover-img" src="{{COVER_IMAGE}}" alt="" />
+  <div class="cover-veil"></div>
   <div class="cover-shade"></div>
   <div class="cover-diamond"></div>
 
@@ -142,7 +159,7 @@
 
   <div class="cover-main">
     <p class="eyebrow light">Servicio especializado</p>
-    <h1>Peritaje estructural post-sismo y estudio de vulnerabilidad sísmica</h1>
+    <h1>Peritaje estructural <span class="nw">post-sismo</span> y estudio de vulnerabilidad sísmica</h1>
     <p class="cover-for">Servicio especializado para aseguradoras, administraciones, constructoras y copropiedades.</p>
     <div class="chips">
       <span class="chip-dark">Aseguradoras</span>
@@ -179,34 +196,9 @@
           <li class="check"><i>✓</i>Mapeo de fisuras y grietas</li>
           <li class="check"><i>✓</i>Registro fotográfico técnico georreferenciado</li>
           <li class="check"><i>✓</i>Evaluación de verticalidad, desplomes y deformaciones</li>
-          <li class="check"><i>✓</i>Aplicación de metodología AIS para evaluación post-sismo</li>
+          <li class="check"><i>✓</i><span>Aplicación de metodología AIS para evaluación <span class="nw">post-sismo</span></span></li>
         </ul>
       </article>
-      <article class="card">
-        <span class="card-n">02</span>
-        <h3>Levantamiento as-built y caracterización estructural</h3>
-        <ul>
-          <li class="check"><i>✓</i>Levantamiento geométrico completo de la estructura</li>
-          <li class="check"><i>✓</i>Elaboración de planos as-built (BIM)</li>
-          <li class="check"><i>✓</i>Identificación del sistema estructural existente</li>
-          <li class="check"><i>✓</i>Evaluación de irregularidades estructurales</li>
-          <li class="check"><i>✓</i>Verificación de elementos ocultos mediante exploración especializada</li>
-        </ul>
-      </article>
-      <article class="card">
-        <span class="card-n">05</span>
-        <h3>Determinación del nexo causal</h3>
-        <p class="lead"><strong>Uno de los aspectos más importantes para procesos con aseguradoras.</strong> Nuestro equipo determina técnicamente:</p>
-        <ul>
-          <li class="check"><i>✓</i>Daños causados por el evento sísmico</li>
-          <li class="check"><i>✓</i>Daños atribuibles al envejecimiento de la estructura</li>
-          <li class="check"><i>✓</i>Efectos de corrosión, carbonatación o deterioro previo</li>
-          <li class="check"><i>✓</i>Relación entre la demanda sísmica registrada y los daños observados</li>
-          <li class="check"><i>✓</i>Nivel de riesgo y habitabilidad de la edificación</li>
-        </ul>
-      </article>
-    </div>
-    <div class="col">
       <article class="card">
         <span class="card-n">03</span>
         <h3>Estudios de materiales y ensayos especializados</h3>
@@ -223,6 +215,24 @@
           <li class="check"><i>✓</i>Medición dinámica y vibración ambiental</li>
         </ul>
       </article>
+      <aside class="callout">
+        <p class="eyebrow light">Respaldo técnico</p>
+        <p class="quote">Diagnósticos respaldados por evidencia técnica verificable.</p>
+        <div class="tags"><span>NSR-10</span><span>Metodologías AIS</span><span>Laboratorios acreditados</span></div>
+      </aside>
+    </div>
+    <div class="col">
+      <article class="card">
+        <span class="card-n">02</span>
+        <h3>Levantamiento as-built y caracterización estructural</h3>
+        <ul>
+          <li class="check"><i>✓</i>Levantamiento geométrico completo de la estructura</li>
+          <li class="check"><i>✓</i>Elaboración de planos as-built (BIM)</li>
+          <li class="check"><i>✓</i>Identificación del sistema estructural existente</li>
+          <li class="check"><i>✓</i>Evaluación de irregularidades estructurales</li>
+          <li class="check"><i>✓</i>Verificación de elementos ocultos mediante exploración especializada</li>
+        </ul>
+      </article>
       <article class="card">
         <span class="card-n">04</span>
         <h3>Modelación y evaluación sísmica</h3>
@@ -234,6 +244,18 @@
           <li class="check"><i>✓</i>Verificación de estabilidad global</li>
           <li class="check"><i>✓</i>Evaluación de pisos blandos y zonas críticas</li>
           <li class="check"><i>✓</i>Análisis conforme a NSR-10 Capítulo A.10</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="card-n">05</span>
+        <h3>Determinación del nexo causal</h3>
+        <p class="lead"><strong>Uno de los aspectos más importantes para procesos con aseguradoras.</strong> Nuestro equipo determina técnicamente:</p>
+        <ul>
+          <li class="check"><i>✓</i>Daños causados por el evento sísmico</li>
+          <li class="check"><i>✓</i>Daños atribuibles al envejecimiento de la estructura</li>
+          <li class="check"><i>✓</i>Efectos de corrosión, carbonatación o deterioro previo</li>
+          <li class="check"><i>✓</i>Relación entre la demanda sísmica registrada y los daños observados</li>
+          <li class="check"><i>✓</i>Nivel de riesgo y habitabilidad de la edificación</li>
         </ul>
       </article>
     </div>
@@ -279,11 +301,6 @@
     </div>
   </div>
 
-  <footer class="page-footer"><span>Arboleda Ayerbe Construcciones S.A.S. · NIT 901015900</span><b>03</b></footer>
-</section>
-
-<!-- ═══════════ 4 · VALOR AGREGADO + CONTACTO ═══════════ -->
-<section class="page">
   <div class="value">
     <p class="eyebrow">Por qué elegirnos</p>
     <h2 class="h2">Valor agregado</h2>
@@ -295,6 +312,23 @@
       <div class="vitem"><i>✓</i>Integración de ensayos destructivos y no destructivos.</div>
       <div class="vitem"><i>✓</i>Diagnósticos respaldados por evidencia técnica verificable.</div>
     </div>
+  </div>
+
+  <footer class="page-footer"><span>Arboleda Ayerbe Construcciones S.A.S. · NIT 901015900</span><b>03</b></footer>
+</section>
+
+<!-- ═══════════ 4 · CONTRAPORTADA ═══════════ -->
+<section class="page back">
+  <div class="back-diamond" style="left:-230px; top:-200px"></div>
+  <div class="back-diamond" style="right:-260px; bottom:-120px"></div>
+  <div class="back-center">
+  <div class="back-brand">
+    {{MARK_WHITE_120}}
+    <div>
+      <div class="back-name">Arboleda Ayerbe</div>
+      <div class="back-sub">Construcciones S.A.S.</div>
+    </div>
+    <div class="back-tag">Construyendo futuro</div>
   </div>
 
   <div class="contact">
@@ -310,15 +344,8 @@
     </div>
   </div>
 
-  <div class="back-footer">
-    {{MARK_WHITE_64}}
-    <div>
-      <div class="back-name">Arboleda Ayerbe</div>
-      <div class="back-sub">Construcciones S.A.S.</div>
-    </div>
-    <div class="back-tag">Construyendo futuro</div>
-    <div class="back-nit">NIT 901015900</div>
   </div>
+  <div class="back-bottom"><span>Arboleda Ayerbe Construcciones S.A.S.</span><span>NIT 901015900</span></div>
 </section>
 
 </body>

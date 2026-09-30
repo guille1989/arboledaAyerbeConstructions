@@ -71,8 +71,10 @@ function findChrome() {
 
 const env = readEnv()
 const html = readFileSync(path.join(root, 'brochure', 'brochure.html'), 'utf8')
+  // Como data URI JPEG, Chrome incrusta la foto sin recomprimir (una URL remota puede llegar como AVIF y pesar MBs)
+  .replaceAll('{{COVER_IMAGE}}', `data:image/jpeg;base64,${readFileSync(path.join(root, 'brochure', 'cover.jpg')).toString('base64')}`)
   .replaceAll('{{MARK_WHITE_34}}', brandMark(34, '#ffffff'))
-  .replaceAll('{{MARK_WHITE_64}}', brandMark(64, '#ffffff'))
+  .replaceAll('{{MARK_WHITE_120}}', brandMark(120, '#ffffff'))
   .replaceAll('{{YEAR}}', String(new Date().getFullYear()))
   .replaceAll('{{CONTACT_ROWS}}', contactRows(env))
 
