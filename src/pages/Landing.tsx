@@ -57,6 +57,24 @@ const WHATSAPP_DISPLAY = import.meta.env.VITE_WHATSAPP_DISPLAY?.trim() || (WHATS
 const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL?.trim() ?? ''
 const HAS_CONTACT = Boolean(WHATSAPP_NUMBER || CONTACT_EMAIL)
 
+// Copia al portapapeles; si la API moderna no está permitida (iframes, navegadores antiguos) usa execCommand
+async function copyText(text: string) {
+  try {
+    await navigator.clipboard.writeText(text)
+  } catch {
+    const ta = document.createElement('textarea')
+    ta.value = text
+    ta.setAttribute('readonly', '')
+    ta.style.position = 'fixed'
+    ta.style.opacity = '0'
+    document.body.appendChild(ta)
+    ta.select()
+    const ok = document.execCommand('copy')
+    ta.remove()
+    if (!ok) throw new Error('copy failed')
+  }
+}
+
 function useReveal() {
   const ref = useRef<HTMLElement>(null)
   useEffect(() => {
@@ -121,6 +139,7 @@ export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('inicio')
   const [copyStatus, setCopyStatus] = useState('')
+  const [emailCopy, setEmailCopy] = useState<'' | 'ok' | 'error'>('')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -140,12 +159,22 @@ export default function Landing() {
 
   const handleCopy = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText(REQUEST_TEXT)
+      await copyText(REQUEST_TEXT)
       setCopyStatus('Texto copiado. Ya puede completarlo y enviarlo.')
     } catch {
       setCopyStatus('Seleccione el texto y cópielo manualmente.')
     }
     setTimeout(() => setCopyStatus(''), 4000)
+  }, [])
+
+  const handleCopyEmail = useCallback(async () => {
+    try {
+      await copyText(CONTACT_EMAIL)
+      setEmailCopy('ok')
+    } catch {
+      setEmailCopy('error')
+    }
+    setTimeout(() => setEmailCopy(''), 2500)
   }, [])
 
   const navLinkClass = (id: string) =>
@@ -443,9 +472,9 @@ export default function Landing() {
                   )}
                   {/* Email */}
                   {CONTACT_EMAIL && (
+                  <div className="flex items-stretch rounded-xl border overflow-hidden" style={{ borderColor: 'rgba(255,255,255,.1)' }}>
                   <a href={`mailto:${CONTACT_EMAIL}`}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl no-underline border transition-colors duration-200 hover:bg-white/5"
-                    style={{ borderColor: 'rgba(255,255,255,.1)' }}>
+                    className="flex flex-1 min-w-0 items-center gap-3 px-4 py-3 no-underline transition-colors duration-200 hover:bg-white/5">
                     <span className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(216,173,87,.12)' }}>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="#d8ad57" strokeWidth="1.5"/><path d="M2 8l10 7 10-7" stroke="#d8ad57" strokeWidth="1.5" strokeLinecap="round"/></svg>
                     </span>
@@ -455,6 +484,16 @@ export default function Landing() {
                     </div>
                     <svg className="ml-auto shrink-0" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5l7-7M3 2.5h6.5V9" stroke="#5e6977" strokeWidth="1.5" strokeLinecap="round"/></svg>
                   </a>
+                  <button type="button" onClick={handleCopyEmail}
+                    className="shrink-0 inline-flex items-center gap-1.5 px-3.5 border-l bg-transparent text-xs font-semibold cursor-pointer transition-colors duration-200 hover:bg-white/5"
+                    style={{ borderColor: 'rgba(255,255,255,.1)', color: emailCopy === 'ok' ? '#71D6A3' : emailCopy === 'error' ? '#f2d28f' : '#d8ad57' }}
+                    aria-label="Copiar correo electrónico" title="Copiar correo electrónico">
+                    {emailCopy === 'ok'
+                      ? <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2.5 7.5l3 3 6-7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      : <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><rect x="4.5" y="4.5" width="8" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.4"/><path d="M9.5 2.5V2A1.5 1.5 0 0 0 8 .5H2A1.5 1.5 0 0 0 .5 2v6A1.5 1.5 0 0 0 2 9.5h.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>}
+                    <span className="hidden sm:inline" aria-live="polite">{emailCopy === 'ok' ? 'Copiado' : emailCopy === 'error' ? 'Cópielo manualmente' : 'Copiar'}</span>
+                  </button>
+                  </div>
                   )}
                 </div>
               </div>
