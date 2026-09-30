@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arboleda Averbe Construcciones S.A.S. | Diagnóstico estructural</title>
+  <meta name="description" content="Inspección, diagnóstico, modelación, reforzamiento y presupuesto para proyectos de evaluación estructural.">
+  <meta name="theme-color" content="#07111f">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%2307111f'/%3E%3Cpath d='M10 48 27 14h10L21 48Zm23 0 13-27 12 27H47l-3-7h-9l-3 7Z' fill='%23d8ad57'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --ink: #08111d;
+      --navy: #0b1a2c;
+      --navy-2: #122741;
+      --gold: #d8ad57;
+      --gold-soft: #f4e6c8;
+      --paper: #f4f6f8;
+      --white: #fff;
+      --muted: #5e6977;
+      --line: #d9dee5;
+      --orange: #e8732a;
+      --radius: 18px;
+      --shadow: 0 20px 55px rgba(7, 17, 31, .12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+
+    .container { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #9a6e1f;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow.light { color: #f1cf88; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { line-height: 1.08; letter-spacing: -.035em; }
+    h1 { max-width: 780px; margin-bottom: 24px; font-size: clamp(2.7rem, 6vw, 5.8rem); font-weight: 760; }
+    h2 { margin-bottom: 18px; font-size: clamp(2rem, 4vw, 3.7rem); font-weight: 740; }
+    h3 { margin-bottom: 12px; font-size: 1.3rem; }
+    .lead { max-width: 690px; color: #dfe7f0; font-size: clamp(1.08rem, 1.7vw, 1.28rem); line-height: 1.7; }
+    .section-intro { max-width: 720px; color: var(--muted); font-size: 1.08rem; }
+
+    .site-header {
+      position: absolute;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      width: 100%;
+      color: var(--white);
+      border-bottom: 1px solid rgba(255,255,255,.13);
+    }
+    .nav { min-height: 92px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand img {
+      width: 148px;
+      height: 70px;
+      object-fit: contain;
+      filter: brightness(1.75) contrast(1.02) saturate(1.08);
+    }
+    .brand-label { max-width: 140px; font-size: .76rem; font-weight: 760; line-height: 1.25; letter-spacing: .08em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 28px; font-size: .9rem; font-weight: 650; }
+    .nav-links a { text-decoration: none; color: #eef3f8; }
+    .nav-links a:hover { color: var(--gold); }
+    .menu-button { display: none; border: 0; background: transparent; color: white; font: inherit; cursor: pointer; }
+
+    .button {
+      display: inline-flex;
+      min-height: 50px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 0 20px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      background: var(--gold);
+      color: #172033;
+      font-size: .94rem;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); background: #e7bd68; }
+    .button.secondary { border-color: rgba(255,255,255,.35); background: rgba(255,255,255,.06); color: white; }
+    .button.secondary:hover { background: rgba(255,255,255,.12); }
+    .button.small { min-height: 42px; padding-inline: 17px; }
+
+    .hero {
+      position: relative;
+      min-height: 780px;
+      overflow: hidden;
+      color: var(--white);
+      background: var(--navy);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(90deg, rgba(4, 12, 23, .99) 0%, rgba(4, 12, 23, .94) 34%, rgba(4, 12, 23, .34) 69%, rgba(4, 12, 23, .2) 100%),
+        linear-gradient(0deg, rgba(5,13,24,.72), transparent 50%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: 2;
+      right: 5vw;
+      bottom: -150px;
+      width: 520px;
+      height: 520px;
+      border: 1px solid rgba(216,173,87,.34);
+      transform: rotate(45deg);
+      box-shadow: 0 0 0 70px rgba(216,173,87,.035), 0 0 0 140px rgba(216,173,87,.025);
+    }
+    .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .hero-content { position: relative; z-index: 3; padding: 190px 0 110px; }
+    .hero-copy { width: min(760px, 70%); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 34px; }
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      width: min(690px, 100%);
+      margin-top: 74px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.18);
+    }
+    .hero-meta div { min-height: 100px; padding: 20px; background: rgba(6,16,29,.72); backdrop-filter: blur(8px); }
+    .hero-meta strong { display: block; color: var(--gold); font-size: 1.03rem; }
+    .hero-meta span { color: #d5dde8; font-size: .86rem; }
+
+    section { padding: 112px 0; }
+    .services { background: var(--paper); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 48px; margin-bottom: 52px; }
+    .section-head h2 { max-width: 720px; margin-bottom: 0; }
+    .section-head p { max-width: 390px; margin-bottom: 6px; color: var(--muted); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .service-card {
+      position: relative;
+      min-height: 270px;
+      padding: 28px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .service-card:hover { transform: translateY(-5px); border-color: #caa353; box-shadow: var(--shadow); }
+    .service-card::after {
+      content: "";
+      position: absolute;
+      right: -54px;
+      bottom: -54px;
+      width: 118px;
+      height: 118px;
+      border: 1px solid rgba(216,173,87,.35);
+      transform: rotate(45deg);
+    }
+    .service-number { display: block; margin-bottom: 34px; color: #a77627; font-weight: 820; letter-spacing: .08em; }
+    .service-card p { margin-bottom: 0; color: var(--muted); }
+
+    .method { color: white; background: var(--navy); }
+    .method-layout { display: grid; grid-template-columns: .85fr 1.15fr; gap: 80px; align-items: start; }
+    .method-copy { position: sticky; top: 40px; }
+    .method-copy p { max-width: 500px; color: #cbd5e1; }
+    .steps { border-top: 1px solid rgba(255,255,255,.18); }
+    .step { display: grid; grid-template-columns: 70px 1fr; gap: 22px; padding: 31px 0; border-bottom: 1px solid rgba(255,255,255,.18); }
+    .step b { color: var(--gold); font-size: 1rem; letter-spacing: .12em; }
+    .step h3 { font-size: 1.52rem; }
+    .step p { margin-bottom: 0; color: #b8c5d4; }
+
+    .deliverables-layout { display: grid; grid-template-columns: 1.05fr .95fr; gap: 68px; align-items: center; }
+    .deliverables-panel {
+      position: relative;
+      padding: 38px;
+      border-radius: 26px;
+      background: linear-gradient(145deg, #10253e, #07111f);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+    .deliverables-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 38px;
+      width: 74px;
+      height: 5px;
+      background: var(--gold);
+    }
+    .deliverable-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 28px 0 0; padding: 0; list-style: none; }
+    .deliverable-list li { padding: 15px 16px; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; color: #dce6ef; }
+    .checklist { margin: 30px 0 0; padding: 0; list-style: none; }
+    .checklist li { position: relative; padding: 14px 0 14px 34px; border-bottom: 1px solid var(--line); }
+    .checklist li::before { content: ""; position: absolute; top: 23px; left: 2px; width: 16px; height: 8px; border-left: 2px solid #a77627; border-bottom: 2px solid #a77627; transform: rotate(-45deg); }
+
+    .coverage { padding-top: 0; }
+    .coverage-band {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 48px;
+      padding: 52px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: #fafbfc;
+    }
+    .sector-list { display: flex; flex-wrap: wrap; align-content: start; gap: 10px; }
+    .sector-list span { padding: 10px 14px; border-radius: 999px; background: white; border: 1px solid var(--line); color: #354153; font-size: .92rem; }
+
+    .request { padding: 112px 0; background: var(--gold-soft); }
+    .request-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 74px; align-items: center; }
+    .request-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 30px; }
+    .request-list div { padding: 18px; border: 1px solid rgba(91,66,20,.18); border-radius: 14px; background: rgba(255,255,255,.55); }
+    .request-list strong { display: block; margin-bottom: 4px; }
+    .copy-card { padding: 32px; border-radius: 22px; background: var(--navy); color: white; box-shadow: var(--shadow); }
+    .copy-card p { color: #cbd5e1; }
+    .copy-template { margin: 22px 0; padding: 20px; border: 1px solid rgba(255,255,255,.16); border-radius: 14px; background: rgba(255,255,255,.05); color: #e8edf3; font-size: .92rem; white-space: pre-line; }
+    .copy-status { min-height: 24px; margin: 12px 0 0; color: #f2d28f; font-size: .88rem; }
+
+    .faq { background: var(--paper); }
+    .faq-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 70px; }
+    details { padding: 22px 0; border-top: 1px solid #cfd6de; }
+    details:last-child { border-bottom: 1px solid #cfd6de; }
+    summary { display: flex; justify-content: space-between; gap: 20px; cursor: pointer; font-size: 1.05rem; font-weight: 750; list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: #a77627; font-size: 1.35rem; }
+    details[open] summary::after { content: "−"; }
+    details p { max-width: 680px; margin: 16px 0 0; color: var(--muted); }
+
+    footer { padding: 48px 0 30px; background: #050c16; color: white; }
+    .footer-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: end; }
+    .footer-brand { display: flex; align-items: center; gap: 22px; }
+    .footer-brand img { width: 190px; height: 126px; object-fit: contain; filter: brightness(1.7) contrast(1.02) saturate(1.08); }
+    .footer-brand p { max-width: 360px; margin-bottom: 0; color: #9eacbc; }
+    .footer-note { text-align: right; color: #9eacbc; font-size: .86rem; }
+    .footer-note strong { display: block; color: #f0d293; font-size: .95rem; }
+
+    @media (max-width: 900px) {
+      .nav { min-height: 78px; }
+      .brand img { width: 115px; height: 55px; }
+      .brand-label { display: none; }
+      .menu-button { display: inline-flex; padding: 10px; }
+      .nav-links {
+        position: absolute;
+        top: 78px;
+        right: 20px;
+        left: 20px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px;
+        border: 1px solid rgba(255,255,255,.14);
+        border-radius: 16px;
+        background: rgba(7,17,31,.97);
+        box-shadow: var(--shadow);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links .button { width: 100%; }
+      .hero { min-height: 740px; }
+      .hero::before { background: linear-gradient(90deg, rgba(4,12,23,.97), rgba(4,12,23,.77)); }
+      .hero-image { object-position: 64% center; }
+      .hero-content { padding-top: 150px; }
+      .hero-copy { width: 100%; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 18px; }
+      .method-layout, .deliverables-layout, .request-grid, .faq-grid { grid-template-columns: 1fr; gap: 50px; }
+      .method-copy { position: static; }
+      .coverage-band { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 620px) {
+      .container { width: min(100% - 28px, 1160px); }
+      section { padding: 78px 0; }
+      h1 { font-size: clamp(2.55rem, 13vw, 4rem); }
+      .hero { min-height: 830px; }
+      .hero::before { background: linear-gradient(180deg, rgba(4,12,23,.92), rgba(4,12,23,.86)); }
+      .hero-content { padding: 130px 0 72px; }
+      .hero-meta { grid-template-columns: 1fr; }
+      .hero-meta div { min-height: 74px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-card { min-height: 230px; }
+      .deliverable-list, .request-list { grid-template-columns: 1fr; }
+      .coverage-band, .deliverables-panel, .copy-card { padding: 28px; }
+      .step { grid-template-columns: 48px 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-brand { align-items: flex-start; flex-direction: column; }
+      .footer-note { text-align: left; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container nav" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" aria-label="Arboleda Averbe Construcciones, inicio">
+        <img src="assets/logo-aa-construcciones.png" alt="Logotipo de Arboleda Averbe Construcciones S.A.S.">
+        <span class="brand-label">Ingeniería y diagnóstico estructural</span>
+      </a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="menu">Menú</button>
+      <div class="nav-links" id="menu">
+        <a href="#servicios">Servicios</a>
+        <a href="#metodologia">Metodología</a>
+        <a href="#entregables">Entregables</a>
+        <a class="button small" href="#solicitud">Solicitar propuesta</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <img class="hero-image" src="assets/hero-inspeccion-estructural.png" alt="Ingenieros realizando una inspección técnica en una estructura de concreto">
+      <div class="container hero-content">
+        <div class="hero-copy">
+          <p class="eyebrow light">Peritaje · vulnerabilidad · reforzamiento</p>
+          <h1>Decisiones estructurales respaldadas por evidencia.</h1>
+          <p class="lead">Integramos levantamiento, inspección, ensayos, modelación y diseño para entender el comportamiento real de una edificación y definir el siguiente paso con claridad.</p>
+          <div class="hero-actions">
+            <a class="button" href="#servicios">Conocer servicios <span aria-hidden="true">↓</span></a>
+            <a class="button secondary" href="#solicitud">Preparar una solicitud</a>
+          </div>
+          <div class="hero-meta" aria-label="Áreas principales de trabajo">
+            <div><strong>Campo</strong><span>Inspección, levantamiento y registro</span></div>
+            <div><strong>Análisis</strong><span>Ensayos, modelación y diagnóstico</span></div>
+            <div><strong>Solución</strong><span>Reforzamiento, planos y presupuesto</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="servicios">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Capacidad integral</p>
+            <h2>Del estado actual a una solución construible.</h2>
+          </div>
+          <p>Un alcance coordinado reduce vacíos entre la visita, el cálculo y las decisiones de intervención.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card"><span class="service-number">01</span><h3>Levantamiento as-built</h3><p>Geometría, configuración estructural y documentación del estado existente para establecer una base técnica confiable.</p></article>
+          <article class="service-card"><span class="service-number">02</span><h3>Inventario de daños</h3><p>Inspección visual, registro fotográfico, clasificación de afectaciones y mapeo detallado de fisuras.</p></article>
+          <article class="service-card"><span class="service-number">03</span><h3>Caracterización de materiales</h3><p>Núcleos de concreto, esclerometría, ultrasonido, detección de refuerzo y evaluación de procesos de deterioro.</p></article>
+          <article class="service-card"><span class="service-number">04</span><h3>Geotecnia y cimentaciones</h3><p>Apiques, sondeos, verificación de cimentaciones e integración de la información del suelo con el análisis estructural.</p></article>
+          <article class="service-card"><span class="service-number">05</span><h3>Modelación estructural</h3><p>Construcción y calibración de modelos, análisis de sobreesfuerzos, flexibilidad, derivas y respuesta sísmica.</p></article>
+          <article class="service-card"><span class="service-number">06</span><h3>Vulnerabilidad y diagnóstico</h3><p>Integración de evidencias para establecer condición, riesgo, estabilidad, habitabilidad y posibles nexos causales.</p></article>
+          <article class="service-card"><span class="service-number">07</span><h3>Demanda sísmica</h3><p>Evaluación de escenarios normativos, comparación de resultados y reverificación ante cambios de criterios.</p></article>
+          <article class="service-card"><span class="service-number">08</span><h3>Diseño de reforzamiento</h3><p>Selección de alternativas, diseño, verificación, detalles constructivos, memorias y planos para licencia.</p></article>
+          <article class="service-card"><span class="service-number">09</span><h3>Presupuesto y APU</h3><p>Cantidades de obra, análisis de precios unitarios y presupuesto discriminado para planear la intervención.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="method" id="metodologia">
+      <div class="container method-layout">
+        <div class="method-copy">
+          <p class="eyebrow light">Metodología</p>
+          <h2>Una ruta técnica, sin saltos entre disciplinas.</h2>
+          <p>Cada etapa aporta evidencia a la siguiente. El alcance se ajusta a la información disponible, la tipología de la edificación y la decisión que el cliente necesita tomar.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><b>01</b><div><h3>Recopilar</h3><p>Revisamos planos, memorias, antecedentes, intervenciones y condiciones conocidas del inmueble.</p></div></article>
+          <article class="step"><b>02</b><div><h3>Inspeccionar y medir</h3><p>Levantamos geometría, daños y variables de campo con registro ordenado y trazable.</p></div></article>
+          <article class="step"><b>03</b><div><h3>Ensayar y modelar</h3><p>Caracterizamos materiales, verificamos hipótesis y evaluamos el comportamiento de la estructura.</p></div></article>
+          <article class="step"><b>04</b><div><h3>Concluir y diseñar</h3><p>Convertimos los hallazgos en diagnóstico, alternativas, planos, memorias y presupuesto de intervención.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="entregables">
+      <div class="container deliverables-layout">
+        <div>
+          <p class="eyebrow">Resultados utilizables</p>
+          <h2>Entregables que permiten actuar.</h2>
+          <p class="section-intro">La documentación se organiza para que propietarios, diseñadores, revisores y constructores puedan seguir la evidencia, entender las conclusiones y ejecutar las decisiones.</p>
+          <ul class="checklist">
+            <li>Alcance definido y criterios técnicos explícitos.</li>
+            <li>Hallazgos vinculados con registros, mediciones y ensayos.</li>
+            <li>Conclusiones priorizadas según condición y riesgo.</li>
+            <li>Recomendaciones compatibles con las siguientes fases del proyecto.</li>
+          </ul>
+        </div>
+        <div class="deliverables-panel">
+          <p class="eyebrow light">Según el alcance contratado</p>
+          <h3>Paquete técnico</h3>
+          <ul class="deliverable-list">
+            <li>Planos as-built</li>
+            <li>Registro fotográfico</li>
+            <li>Mapas de fisuras</li>
+            <li>Resultados de ensayos</li>
+            <li>Modelo estructural</li>
+            <li>Memoria de cálculo</li>
+            <li>Informe de diagnóstico</li>
+            <li>Planos de reforzamiento</li>
+            <li>Especificaciones</li>
+            <li>Presupuesto y APU</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="coverage">
+      <div class="container coverage-band">
+        <div>
+          <p class="eyebrow">Aplicaciones</p>
+          <h2>Evaluaciones para edificios existentes y proyectos de intervención.</h2>
+          <p class="section-intro">El alcance puede enfocarse en una pregunta puntual o integrar el ciclo completo de diagnóstico y reforzamiento.</p>
+        </div>
+        <div class="sector-list" aria-label="Tipos de proyecto">
+          <span>Edificaciones residenciales</span><span>Equipamientos institucionales</span><span>Edificios comerciales</span><span>Estructuras industriales</span><span>Cambios de uso</span><span>Daños y patologías</span><span>Reforzamientos</span><span>Actualización normativa</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="request" id="solicitud">
+      <div class="container request-grid">
+        <div>
+          <p class="eyebrow">Solicite una propuesta</p>
+          <h2>Empecemos por entender la necesidad.</h2>
+          <p class="section-intro">Con esta información podemos orientar el alcance inicial y definir si se requiere visita, ensayos o documentación adicional.</p>
+          <div class="request-list">
+            <div><strong>Proyecto</strong><span>Uso, número de pisos y área.</span></div>
+            <div><strong>Ubicación</strong><span>Ciudad y condiciones de acceso.</span></div>
+            <div><strong>Motivo</strong><span>Daño, reforma, licencia o revisión.</span></div>
+            <div><strong>Documentos</strong><span>Planos, estudios e informes disponibles.</span></div>
+          </div>
+        </div>
+        <div class="copy-card">
+          <p class="eyebrow light">Mensaje inicial</p>
+          <h3>Prepare su solicitud</h3>
+          <p>Copie este texto, complételo y envíelo por el canal comercial habitual de Arboleda Averbe.</p>
+          <div class="copy-template" id="requestText">Hola, deseo solicitar una propuesta para una evaluación estructural.
+
+Proyecto / tipo de edificación:
+Ubicación:
+Área aproximada y número de pisos:
+Motivo del estudio:
+Documentación disponible:
+Plazo esperado:</div>
+          <button class="button" type="button" id="copyButton">Copiar texto de solicitud</button>
+          <p class="copy-status" id="copyStatus" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="container faq-grid">
+        <div><p class="eyebrow">Preguntas frecuentes</p><h2>Antes de iniciar.</h2></div>
+        <div>
+          <details><summary>¿Todos los proyectos requieren ensayos?</summary><p>No necesariamente. La necesidad y el tipo de ensayo dependen de la información existente, la condición observada y las hipótesis que deban verificarse.</p></details>
+          <details><summary>¿Se puede contratar solo una etapa?</summary><p>Sí. El alcance puede concentrarse en levantamiento, inspección, modelación, diagnóstico, diseño o presupuesto, siempre que la información de entrada sea suficiente.</p></details>
+          <details><summary>¿Los ítems adicionales forman parte del alcance base?</summary><p>Las reverificaciones por cambios normativos y las corridas adicionales del modelo se definen expresamente en cada propuesta para evitar ambigüedades.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo-aa-construcciones.png" alt="Arboleda Averbe Construcciones S.A.S.">
+        <p>Servicios técnicos para conocer, evaluar y transformar estructuras existentes.</p>
+      </div>
+      <div class="footer-note"><strong>Arboleda Averbe Construcciones S.A.S.</strong><span>Construyendo futuro · <span id="year"></span></span></div>
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.querySelector('.menu-button');
+    const menu = document.querySelector('.nav-links');
+    menuButton.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(open));
+    });
+    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+      menu.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+    }));
+
+    const copyButton = document.getElementById('copyButton');
+    const copyStatus = document.getElementById('copyStatus');
+    copyButton.addEventListener('click', async () => {
+      const text = document.getElementById('requestText').innerText;
+      try {
+        await navigator.clipboard.writeText(text);
+        copyStatus.textContent = 'Texto copiado. Ya puede completarlo y enviarlo.';
+      } catch {
+        copyStatus.textContent = 'Seleccione el texto y cópielo manualmente.';
+      }
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
