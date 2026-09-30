@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router'
+import BrandMark from '../components/BrandMark'
 
 const HERO_IMG =
   'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&h=900&fit=crop&auto=format'
@@ -49,6 +50,12 @@ Ubicación:
 Motivo del estudio:
 Documentación disponible:
 Plazo esperado:`
+
+// Contacto configurable desde .env (ver .env.example); un canal sin valor no se muestra
+const WHATSAPP_NUMBER = (import.meta.env.VITE_WHATSAPP_NUMBER ?? '').replace(/\D/g, '')
+const WHATSAPP_DISPLAY = import.meta.env.VITE_WHATSAPP_DISPLAY?.trim() || (WHATSAPP_NUMBER && `+${WHATSAPP_NUMBER}`)
+const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL?.trim() ?? ''
+const HAS_CONTACT = Boolean(WHATSAPP_NUMBER || CONTACT_EMAIL)
 
 function useReveal() {
   const ref = useRef<HTMLElement>(null)
@@ -167,12 +174,9 @@ export default function Landing() {
         }}>
         <nav className="flex items-center justify-between gap-6 min-h-[88px] w-[min(1160px,calc(100%-40px))] mx-auto">
           <a href="#inicio" className="flex items-center gap-3 no-underline" aria-label="Inicio">
-            <svg width="38" height="38" viewBox="0 0 64 64" aria-hidden="true">
-              <rect width="64" height="64" rx="10" fill="#07111f" />
-              <path d="M10 50 27 14h10L21 50Zm23 0 13-27 12 27H47l-3-7H35l-3 7Z" fill="#d8ad57" />
-            </svg>
+            <BrandMark height={30} color="#ffffff" className="shrink-0" />
             <div>
-              <span className="block text-white font-extrabold text-sm leading-tight tracking-wide">Arboleda Averbe</span>
+              <span className="block text-white font-extrabold text-sm leading-tight tracking-wide">Arboleda Ayerbe</span>
               <span className="block text-[10px] font-semibold tracking-[.1em] uppercase" style={{ color: 'rgba(216,173,87,.75)' }}>Construcciones S.A.S.</span>
             </div>
           </a>
@@ -402,7 +406,9 @@ export default function Landing() {
                 <Eyebrow light>Mensaje inicial</Eyebrow>
                 <h3 className="text-xl font-normal mb-2" style={{ fontFamily: 'var(--font-display)' }}>Prepare su solicitud</h3>
                 <p className="text-sm leading-relaxed mb-4" style={{ color: '#cbd5e1' }}>
-                  Copie este texto, complételo y envíenoslo directamente por cualquiera de estos canales:
+                  {HAS_CONTACT
+                    ? 'Copie este texto, complételo y envíenoslo directamente por cualquiera de estos canales:'
+                    : 'Copie este texto y complételo con la información de su proyecto.'}
                 </p>
                 <pre className="text-xs leading-relaxed p-4 rounded-xl whitespace-pre-line mb-4" style={{ background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.13)', color: '#e8edf3', fontFamily: 'var(--font-sans)' }}>
                   {REQUEST_TEXT}
@@ -416,11 +422,13 @@ export default function Landing() {
               </div>
 
               {/* Contact channels */}
+              {HAS_CONTACT && (
               <div className="border-t pt-5" style={{ borderColor: 'rgba(255,255,255,.1)' }}>
                 <p className="text-xs font-semibold uppercase tracking-widest mb-3" style={{ color: 'rgba(216,173,87,.7)' }}>Canales de contacto</p>
                 <div className="flex flex-col gap-2.5">
                   {/* WhatsApp */}
-                  <a href="https://wa.me/573001234567" target="_blank" rel="noopener noreferrer"
+                  {WHATSAPP_NUMBER && (
+                  <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer"
                     className="flex items-center gap-3 px-4 py-3 rounded-xl no-underline border transition-colors duration-200 hover:bg-white/5"
                     style={{ borderColor: 'rgba(255,255,255,.1)' }}>
                     <span className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(37,211,102,.15)' }}>
@@ -428,12 +436,14 @@ export default function Landing() {
                     </span>
                     <div className="min-w-0">
                       <p className="text-xs font-semibold text-white m-0">WhatsApp</p>
-                      <p className="text-xs m-0" style={{ color: '#9eacbc' }}>+57 300 123 4567</p>
+                      <p className="text-xs m-0" style={{ color: '#9eacbc' }}>{WHATSAPP_DISPLAY}</p>
                     </div>
                     <svg className="ml-auto shrink-0" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5l7-7M3 2.5h6.5V9" stroke="#5e6977" strokeWidth="1.5" strokeLinecap="round"/></svg>
                   </a>
+                  )}
                   {/* Email */}
-                  <a href="mailto:contacto@arboledaaverbe.com"
+                  {CONTACT_EMAIL && (
+                  <a href={`mailto:${CONTACT_EMAIL}`}
                     className="flex items-center gap-3 px-4 py-3 rounded-xl no-underline border transition-colors duration-200 hover:bg-white/5"
                     style={{ borderColor: 'rgba(255,255,255,.1)' }}>
                     <span className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'rgba(216,173,87,.12)' }}>
@@ -441,12 +451,14 @@ export default function Landing() {
                     </span>
                     <div className="min-w-0">
                       <p className="text-xs font-semibold text-white m-0">Correo electrónico</p>
-                      <p className="text-xs m-0 truncate" style={{ color: '#9eacbc' }}>contacto@arboledaaverbe.com</p>
+                      <p className="text-xs m-0 truncate" style={{ color: '#9eacbc' }}>{CONTACT_EMAIL}</p>
                     </div>
                     <svg className="ml-auto shrink-0" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5l7-7M3 2.5h6.5V9" stroke="#5e6977" strokeWidth="1.5" strokeLinecap="round"/></svg>
                   </a>
+                  )}
                 </div>
               </div>
+              )}
             </div>
           </div>
         </section>
@@ -472,16 +484,13 @@ export default function Landing() {
       <footer className="py-10 pb-7" style={{ background: '#050c16', color: 'white' }}>
         <div className="w-[min(1160px,calc(100%-40px))] mx-auto grid md:grid-cols-[1.1fr_.9fr] gap-8 items-end">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-            <svg width="44" height="44" viewBox="0 0 64 64" aria-hidden="true" className="shrink-0">
-              <rect width="64" height="64" rx="10" fill="#0b1a2c" />
-              <path d="M10 50 27 14h10L21 50Zm23 0 13-27 12 27H47l-3-7H35l-3 7Z" fill="#d8ad57" />
-            </svg>
+            <BrandMark height={40} color="#ffffff" className="shrink-0" />
             <p className="mb-0 text-sm leading-relaxed" style={{ color: '#9eacbc', maxWidth: '360px' }}>
               Servicios técnicos para conocer, evaluar y transformar estructuras existentes.
             </p>
           </div>
           <div className="md:text-right">
-            <strong className="block text-sm font-bold" style={{ color: '#f0d293' }}>Arboleda Averbe Construcciones S.A.S.</strong>
+            <strong className="block text-sm font-bold" style={{ color: '#f0d293' }}>Arboleda Ayerbe Construcciones S.A.S.</strong>
             <span className="text-xs" style={{ color: '#9eacbc' }}>Construyendo futuro · {new Date().getFullYear()}</span>
           </div>
         </div>

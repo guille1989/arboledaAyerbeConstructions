@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import { Link } from 'react-router'
+import BrandMark from '../components/BrandMark'
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip,
   ResponsiveContainer, ReferenceLine, ReferenceArea, Legend,
@@ -144,10 +145,7 @@ function TopBar({ onMenuToggle }: { onMenuToggle: () => void }) {
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="white" strokeWidth="1.5" strokeLinecap="round"/></svg>
         </button>
         <div className="flex items-center gap-2 min-w-0">
-          <svg width="22" height="22" viewBox="0 0 64 64" className="shrink-0" aria-hidden="true">
-            <rect width="64" height="64" rx="8" fill={C.navy2}/>
-            <path d="M10 50 27 14h10L21 50Zm23 0 13-27 12 27H47l-3-7H35l-3 7Z" fill={C.gold}/>
-          </svg>
+          <BrandMark height={18} color="#ffffff" className="shrink-0" />
           <div className="min-w-0">
             <div className="flex items-center gap-2">
               <span className="font-semibold text-sm text-white truncate">Edificio Torre Central</span>
@@ -197,10 +195,7 @@ function Sidebar({ active, onChange, mobile, onClose }: { active: SHMSection; on
       <div className={mobile ? 'relative z-10 flex flex-col w-[220px] h-full border-r overflow-y-auto' : 'flex flex-col h-full'} style={{ background: C.navy, borderColor: C.line }}>
         {/* Logo */}
         <div className="flex items-center gap-2.5 px-5 h-14 border-b shrink-0" style={{ borderColor: C.line }}>
-          <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true">
-            <rect width="64" height="64" rx="8" fill={C.navy2}/>
-            <path d="M10 50 27 14h10L21 50Zm23 0 13-27 12 27H47l-3-7H35l-3 7Z" fill={C.gold}/>
-          </svg>
+          <BrandMark height={18} color="#ffffff" className="shrink-0" />
           <span className="text-white font-bold text-sm leading-tight">SHM Panel</span>
         </div>
         {/* Nav items */}
@@ -866,7 +861,7 @@ function ConfigView() {
       <div className="rounded-xl border p-5" style={{ background: C.cardBg, borderColor: C.line }}>
         <h3 className="text-sm font-semibold text-white m-0 mb-4">Configuración del sistema</h3>
         <div className="flex flex-col gap-4">
-          {[['Nombre del edificio','Edificio Torre Central'],['Dirección','Calle 80 #14-32, Bogotá, Colombia'],['Propietario','Administración Torres Central S.A.S.'],['Ingeniero responsable','Ing. Carlos Arboleda — Arboleda Averbe Construcciones S.A.S.'],['Fecha de instalación','5 de septiembre de 2023'],['Frecuencia de muestreo','200 Hz'],['Protocolo de transmisión','MQTT / TLS 1.3']].map(([l,v]) => (
+          {[['Nombre del edificio','Edificio Torre Central'],['Dirección','Calle 80 #14-32, Bogotá, Colombia'],['Propietario','Administración Torres Central S.A.S.'],['Ingeniero responsable','Ing. Carlos Arboleda — Arboleda Ayerbe Construcciones S.A.S.'],['Fecha de instalación','5 de septiembre de 2023'],['Frecuencia de muestreo','200 Hz'],['Protocolo de transmisión','MQTT / TLS 1.3']].map(([l,v]) => (
             <div key={l} className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 py-3 border-b" style={{ borderColor: C.line }}>
               <span className="text-xs font-medium" style={{ color: C.muted }}>{l}</span>
               <span className="text-xs text-white font-semibold">{v}</span>
@@ -918,7 +913,7 @@ export default function SHMPage() {
             <div className="flex items-center justify-between mb-5">
               <div>
                 <h1 className="text-lg font-bold text-white m-0">{sectionTitle}</h1>
-                <p className="text-xs m-0" style={{ color: C.muted }}>Edificio Torre Central · Sistema SHM Arboleda Averbe</p>
+                <p className="text-xs m-0" style={{ color: C.muted }}>Edificio Torre Central · Sistema SHM Arboleda Ayerbe</p>
               </div>
             </div>
             <SectionContent section={section} />
