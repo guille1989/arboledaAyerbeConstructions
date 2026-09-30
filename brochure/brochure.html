@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Arboleda Ayerbe Construcciones S.A.S. — Peritaje estructural post-sismo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700;800&display=block" rel="stylesheet" />
+<!--
+  Plantilla del brochure. No se sirve en el sitio: `pnpm brochure` la rellena con los datos del .env
+  y la imprime a PDF en public/. Estilos alineados con la web (src/index.css y Landing.tsx).
+-->
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --ink: #07111f; --navy: #0b1a2c; --navy-2: #122741; --footer: #050c16;
+    --gold: #d8ad57; --gold-light: #f1cf88; --gold-soft: #f4e6c8; --gold-dim: #9a6e1f;
+    --brand-gold: #ad864b; --paper: #f5f6f8; --muted: #5e6977; --line: #d9dee5;
+    --display: 'DM Serif Display', Georgia, serif; --sans: 'Inter', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: var(--sans); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, p, ul { margin: 0; }
+  ul { padding: 0; list-style: none; }
+  a { color: inherit; text-decoration: none; }
+
+  .page { position: relative; width: 210mm; height: 297mm; overflow: hidden; break-after: page; }
+  .page:last-child { break-after: auto; }
+  .pad { padding: 0 56px; }
+
+  .eyebrow { margin-bottom: 12px; color: var(--gold-dim); font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+  .eyebrow.light { color: var(--gold-light); }
+  .h2 { font-family: var(--display); font-weight: 400; font-size: 36px; line-height: 1.08; letter-spacing: -.01em; }
+
+  .check { display: flex; gap: 9px; align-items: flex-start; font-size: 10.5px; line-height: 1.45; color: #243042; }
+  .check + .check { margin-top: 6px; }
+  .check i { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; margin-top: 1px;
+    border-radius: 50%; background: rgba(216,173,87,.2); color: var(--gold-dim); font-style: normal; font-size: 8px; font-weight: 800; }
+
+  .page-footer { position: absolute; left: 56px; right: 56px; bottom: 26px; display: flex; justify-content: space-between; align-items: center;
+    padding-top: 12px; border-top: 1px solid var(--line); font-size: 8.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .page-footer b { color: var(--gold-dim); font-weight: 800; }
+
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-name { display: block; font-size: 13px; font-weight: 800; letter-spacing: .02em; line-height: 1.2; }
+  .brand-sub { display: block; font-size: 8.5px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(216,173,87,.8); }
+
+  /* ── Portada ─────────────────────────────── */
+  .cover { background: var(--navy); color: #fff; }
+  .cover-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .42; }
+  .cover-shade { position: absolute; inset: 0; background:
+    linear-gradient(165deg, rgba(4,12,23,.97) 0%, rgba(4,12,23,.9) 42%, rgba(4,12,23,.55) 78%, rgba(4,12,23,.7) 100%),
+    linear-gradient(0deg, rgba(5,13,24,.85) 0%, transparent 50%); }
+  .cover-diamond { position: absolute; right: -150px; top: 330px; width: 430px; height: 430px; transform: rotate(45deg);
+    border: 1px solid rgba(216,173,87,.3); box-shadow: 0 0 0 60px rgba(216,173,87,.03), 0 0 0 120px rgba(216,173,87,.02); }
+  .cover-top { position: absolute; top: 48px; left: 56px; right: 56px; display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 22px; border-bottom: 1px solid rgba(255,255,255,.14); }
+  .cover-tag { font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.7); }
+  .cover-main { position: absolute; top: 230px; left: 56px; right: 56px; }
+  .cover h1 { max-width: 600px; margin-bottom: 26px; font-family: var(--display); font-weight: 400; font-size: 50px; line-height: 1.06; letter-spacing: -.015em; }
+  .cover-for { font-size: 13px; line-height: 1.7; color: #dfe7f0; max-width: 520px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .chip-dark { padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(216,173,87,.45); color: var(--gold); font-size: 10.5px; font-weight: 700; }
+  .cover-card { position: absolute; left: 56px; right: 56px; bottom: 56px; padding: 30px 32px 28px; border: 1px solid rgba(255,255,255,.18);
+    background: rgba(6,16,29,.78); }
+  .cover-card::before { content: ''; position: absolute; top: -1px; left: 32px; width: 70px; height: 3px; background: var(--gold); }
+  .cover-card h2 { margin-bottom: 12px; font-family: var(--display); font-weight: 400; font-size: 25px; line-height: 1.15; color: var(--gold); }
+  .cover-card p { font-size: 12px; line-height: 1.75; color: #dfe7f0; }
+
+  /* ── Servicios ───────────────────────────── */
+  .services { background: var(--paper); }
+  .services-head { padding-top: 52px; margin-bottom: 26px; display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; }
+  .services-head p { max-width: 250px; font-size: 10.5px; line-height: 1.6; color: var(--muted); }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+  .col { display: flex; flex-direction: column; gap: 14px; }
+  .card { position: relative; overflow: hidden; padding: 20px 22px 20px; border: 1px solid var(--line); border-radius: 16px; background: #fff; }
+  .card::after { content: ''; position: absolute; right: -44px; bottom: -44px; width: 88px; height: 88px; transform: rotate(45deg); border: 1px solid rgba(216,173,87,.3); }
+  .card-n { display: block; margin-bottom: 10px; color: var(--gold-dim); font-size: 10px; font-weight: 800; letter-spacing: .14em; }
+  .card h3 { margin-bottom: 12px; font-family: var(--display); font-weight: 400; font-size: 19px; line-height: 1.15; }
+  .card .lead { margin-bottom: 10px; font-size: 10.5px; line-height: 1.5; color: var(--muted); }
+  .card .lead strong { color: var(--ink); font-weight: 700; }
+
+  /* ── Entregables + sectores ─────────────── */
+  .deliver { background: var(--navy); color: #fff; padding: 50px 56px 44px; }
+  .deliver .h2 { margin-bottom: 26px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .dcard { padding: 20px 22px; border: 1px solid rgba(255,255,255,.14); border-radius: 16px; background: rgba(255,255,255,.03); }
+  .dcard .card-n { color: var(--gold); }
+  .dcard h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-family: var(--display); font-weight: 400; font-size: 19px; }
+  .badge { padding: 3px 8px; border-radius: 999px; border: 1px solid rgba(216,173,87,.5); color: var(--gold); font-family: var(--sans); font-size: 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .dash { display: flex; gap: 9px; font-size: 10.5px; line-height: 1.45; color: #c3cfdc; }
+  .dash + .dash { margin-top: 6px; }
+  .dash::before { content: '—'; color: var(--gold); flex: none; }
+  .sectors { padding: 40px 56px 0; }
+  .sectors .h2 { margin-bottom: 20px; }
+  .chip { display: inline-block; margin: 0 6px 8px 0; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: #354153; font-size: 11px; }
+
+  /* ── Contraportada ──────────────────────── */
+  .value { padding: 52px 56px 34px; }
+  .value .h2 { margin-bottom: 22px; }
+  .vgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .vitem { display: flex; gap: 12px; align-items: center; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: #fafbfc;
+    font-size: 11.5px; font-weight: 600; line-height: 1.4; }
+  .vitem i { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%;
+    background: rgba(216,173,87,.2); color: var(--gold-dim); font-style: normal; font-size: 11px; font-weight: 800; }
+  .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: center; padding: 40px 56px; background: var(--gold-soft); }
+  .contact p { margin-top: 12px; font-size: 11px; line-height: 1.65; color: var(--muted); }
+  .ccard { padding: 24px 24px 20px; border-radius: 20px; background: var(--navy); color: #fff; box-shadow: 0 18px 44px rgba(7,17,31,.18); }
+  .ccard-name { font-size: 13px; font-weight: 800; letter-spacing: .06em; }
+  .ccard-role { margin-top: 3px; font-size: 10.5px; color: #9eacbc; }
+  .crow { display: flex; align-items: center; gap: 12px; margin-top: 12px; padding: 11px 14px; border: 1px solid rgba(255,255,255,.12); border-radius: 12px; }
+  .crow-icon { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 8px; }
+  .crow-label { font-size: 9.5px; font-weight: 700; color: #fff; }
+  .crow-value { font-size: 10.5px; color: #c3cfdc; }
+  .back-footer { position: absolute; left: 0; right: 0; bottom: 0; height: 196px; background: var(--footer); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+  .back-name { font-size: 20px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+  .back-sub { margin-top: 4px; font-size: 11px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; color: #c3cfdc; text-align: center; }
+  .back-tag { display: flex; align-items: center; gap: 12px; font-size: 8.5px; letter-spacing: .3em; text-transform: uppercase; color: #9eacbc; }
+  .back-tag::before, .back-tag::after { content: ''; width: 60px; height: 1px; background: var(--brand-gold); }
+  .back-nit { font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase; color: #6f7d8d; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ 1 · PORTADA ═══════════ -->
+<section class="page cover">
+  <img class="cover-img" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&h=2000&fit=crop&auto=format&q=70" alt="" />
+  <div class="cover-shade"></div>
+  <div class="cover-diamond"></div>
+
+  <div class="cover-top">
+    <div class="brand">
+      {{MARK_WHITE_34}}
+      <div>
+        <span class="brand-name">Arboleda Ayerbe</span>
+        <span class="brand-sub">Construcciones S.A.S.</span>
+      </div>
+    </div>
+    <span class="cover-tag">Brochure de servicios · {{YEAR}}</span>
+  </div>
+
+  <div class="cover-main">
+    <p class="eyebrow light">Servicio especializado</p>
+    <h1>Peritaje estructural post-sismo y estudio de vulnerabilidad sísmica</h1>
+    <p class="cover-for">Servicio especializado para aseguradoras, administraciones, constructoras y copropiedades.</p>
+    <div class="chips">
+      <span class="chip-dark">Aseguradoras</span>
+      <span class="chip-dark">Administraciones</span>
+      <span class="chip-dark">Constructoras</span>
+      <span class="chip-dark">Copropiedades</span>
+    </div>
+  </div>
+
+  <div class="cover-card">
+    <h2>¿Su edificio sufrió daños por un sismo?</h2>
+    <p>Realizamos peritajes estructurales integrales que permiten determinar el estado real de una edificación, establecer técnicamente el origen de los daños, evaluar la vulnerabilidad sísmica y proporcionar la información necesaria para reclamaciones ante aseguradoras, procesos judiciales, planes de rehabilitación y toma de decisiones de inversión.</p>
+  </div>
+</section>
+
+<!-- ═══════════ 2 · SERVICIOS ═══════════ -->
+<section class="page services">
+  <div class="pad services-head">
+    <div>
+      <p class="eyebrow">Capacidad integral</p>
+      <h2 class="h2">Nuestros servicios</h2>
+    </div>
+    <p>Del levantamiento en campo al nexo causal: cada etapa aporta evidencia técnica a la siguiente.</p>
+  </div>
+
+  <div class="pad cols">
+    <div class="col">
+      <article class="card">
+        <span class="card-n">01</span>
+        <h3>Inspección y diagnóstico estructural</h3>
+        <ul>
+          <li class="check"><i>✓</i>Levantamiento e inventario detallado de daños</li>
+          <li class="check"><i>✓</i>Clasificación de daños estructurales y no estructurales</li>
+          <li class="check"><i>✓</i>Mapeo de fisuras y grietas</li>
+          <li class="check"><i>✓</i>Registro fotográfico técnico georreferenciado</li>
+          <li class="check"><i>✓</i>Evaluación de verticalidad, desplomes y deformaciones</li>
+          <li class="check"><i>✓</i>Aplicación de metodología AIS para evaluación post-sismo</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="card-n">02</span>
+        <h3>Levantamiento as-built y caracterización estructural</h3>
+        <ul>
+          <li class="check"><i>✓</i>Levantamiento geométrico completo de la estructura</li>
+          <li class="check"><i>✓</i>Elaboración de planos as-built (BIM)</li>
+          <li class="check"><i>✓</i>Identificación del sistema estructural existente</li>
+          <li class="check"><i>✓</i>Evaluación de irregularidades estructurales</li>
+          <li class="check"><i>✓</i>Verificación de elementos ocultos mediante exploración especializada</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="card-n">05</span>
+        <h3>Determinación del nexo causal</h3>
+        <p class="lead"><strong>Uno de los aspectos más importantes para procesos con aseguradoras.</strong> Nuestro equipo determina técnicamente:</p>
+        <ul>
+          <li class="check"><i>✓</i>Daños causados por el evento sísmico</li>
+          <li class="check"><i>✓</i>Daños atribuibles al envejecimiento de la estructura</li>
+          <li class="check"><i>✓</i>Efectos de corrosión, carbonatación o deterioro previo</li>
+          <li class="check"><i>✓</i>Relación entre la demanda sísmica registrada y los daños observados</li>
+          <li class="check"><i>✓</i>Nivel de riesgo y habitabilidad de la edificación</li>
+        </ul>
+      </article>
+    </div>
+    <div class="col">
+      <article class="card">
+        <span class="card-n">03</span>
+        <h3>Estudios de materiales y ensayos especializados</h3>
+        <p class="lead">Trabajamos con laboratorios acreditados para:</p>
+        <ul>
+          <li class="check"><i>✓</i>Extracción de núcleos de concreto</li>
+          <li class="check"><i>✓</i>Esclerometría</li>
+          <li class="check"><i>✓</i>Ultrasonido estructural</li>
+          <li class="check"><i>✓</i>Ferroscan y detección de armaduras</li>
+          <li class="check"><i>✓</i>Ensayos de acero de refuerzo</li>
+          <li class="check"><i>✓</i>Estudios de carbonatación y corrosión</li>
+          <li class="check"><i>✓</i>Verificación de cimentaciones mediante apiques</li>
+          <li class="check"><i>✓</i>Exploración geotécnica y sondeos SPT</li>
+          <li class="check"><i>✓</i>Medición dinámica y vibración ambiental</li>
+        </ul>
+      </article>
+      <article class="card">
+        <span class="card-n">04</span>
+        <h3>Modelación y evaluación sísmica</h3>
+        <ul>
+          <li class="check"><i>✓</i>Modelo estructural tridimensional</li>
+          <li class="check"><i>✓</i>Calibración con mediciones reales</li>
+          <li class="check"><i>✓</i>Evaluación de desempeño sísmico</li>
+          <li class="check"><i>✓</i>Cálculo de derivas y sobreesfuerzos</li>
+          <li class="check"><i>✓</i>Verificación de estabilidad global</li>
+          <li class="check"><i>✓</i>Evaluación de pisos blandos y zonas críticas</li>
+          <li class="check"><i>✓</i>Análisis conforme a NSR-10 Capítulo A.10</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+
+  <footer class="page-footer"><span>Arboleda Ayerbe Construcciones S.A.S. · NIT 901015900</span><b>02</b></footer>
+</section>
+
+<!-- ═══════════ 3 · ENTREGABLES + SECTORES ═══════════ -->
+<section class="page">
+  <div class="deliver">
+    <p class="eyebrow light">Resultados utilizables</p>
+    <h2 class="h2">Documentos entregables</h2>
+    <div class="grid-2">
+      <div class="dcard">
+        <span class="card-n">01</span>
+        <h3>Informe preliminar</h3>
+        <ul><li class="dash">Hallazgos iniciales.</li><li class="dash">Concepto de habitabilidad.</li></ul>
+      </div>
+      <div class="dcard">
+        <span class="card-n">02</span>
+        <h3>Informe técnico de vulnerabilidad</h3>
+        <ul><li class="dash">Resultados de ensayos.</li><li class="dash">Modelo estructural calibrado.</li><li class="dash">Diagnóstico integral.</li></ul>
+      </div>
+      <div class="dcard">
+        <span class="card-n">03</span>
+        <h3>Dictamen pericial</h3>
+        <ul><li class="dash">Determinación técnica de causas.</li><li class="dash">Estado estructural.</li><li class="dash">Nivel de riesgo.</li><li class="dash">Sustento para reclamaciones y procesos legales.</li></ul>
+      </div>
+      <div class="dcard">
+        <span class="card-n">04</span>
+        <h3>Diseño de intervención <span class="badge">Opcional</span></h3>
+        <ul><li class="dash">Alternativas de reforzamiento.</li><li class="dash">Memorias de cálculo.</li><li class="dash">Planos estructurales.</li><li class="dash">Presupuesto de reparación.</li></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sectors">
+    <p class="eyebrow">Aplicaciones</p>
+    <h2 class="h2">Sectores que atendemos</h2>
+    <div>
+      <span class="chip">Conjuntos residenciales</span><span class="chip">Edificios multifamiliares</span><span class="chip">Centros comerciales</span><span class="chip">Hoteles</span><span class="chip">Instituciones educativas</span><span class="chip">Hospitales</span><span class="chip">Infraestructura pública</span><span class="chip">Bodegas industriales</span><span class="chip">Edificaciones patrimoniales</span>
+    </div>
+  </div>
+
+  <footer class="page-footer"><span>Arboleda Ayerbe Construcciones S.A.S. · NIT 901015900</span><b>03</b></footer>
+</section>
+
+<!-- ═══════════ 4 · VALOR AGREGADO + CONTACTO ═══════════ -->
+<section class="page">
+  <div class="value">
+    <p class="eyebrow">Por qué elegirnos</p>
+    <h2 class="h2">Valor agregado</h2>
+    <div class="vgrid">
+      <div class="vitem"><i>✓</i>Independencia técnica.</div>
+      <div class="vitem"><i>✓</i>Experiencia en evaluación de estructuras existentes.</div>
+      <div class="vitem"><i>✓</i>Soporte para reclamaciones ante aseguradoras.</div>
+      <div class="vitem"><i>✓</i>Aplicación de normativa NSR-10 y metodologías AIS.</div>
+      <div class="vitem"><i>✓</i>Integración de ensayos destructivos y no destructivos.</div>
+      <div class="vitem"><i>✓</i>Diagnósticos respaldados por evidencia técnica verificable.</div>
+    </div>
+  </div>
+
+  <div class="contact">
+    <div>
+      <p class="eyebrow">Contacto</p>
+      <h2 class="h2">Empecemos por entender la necesidad.</h2>
+      <p>Cuéntenos el tipo de edificación, su ubicación y lo ocurrido. Con esa información orientamos el alcance inicial del peritaje.</p>
+    </div>
+    <div class="ccard">
+      <div class="ccard-name">JOSE VICENTE ARBOLEDA AYERBE</div>
+      <div class="ccard-role">Ingeniero Civil</div>
+      {{CONTACT_ROWS}}
+    </div>
+  </div>
+
+  <div class="back-footer">
+    {{MARK_WHITE_64}}
+    <div>
+      <div class="back-name">Arboleda Ayerbe</div>
+      <div class="back-sub">Construcciones S.A.S.</div>
+    </div>
+    <div class="back-tag">Construyendo futuro</div>
+    <div class="back-nit">NIT 901015900</div>
+  </div>
+</section>
+
+</body>
+</html>

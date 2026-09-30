@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "format": "oxfmt",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "brochure": "node scripts/build-brochure.mjs"
   },
   "dependencies": {
     "react": "^19.0.0",
